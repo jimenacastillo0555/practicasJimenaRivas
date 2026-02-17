@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de reserva de viajes</title>
+</head>
+<body>
+    <h1>Página de reserva de viajes</h1>
+    <h2>Datos personales</h2>
+    <form>
+        <label for="Nombre">Nombre:</label>
+        <input type="text" name="Nombre" id="Nombre"> <br><br>
+
+        <label for="Correo">Correo Electrónico</label>
+        <input type="Email" name="Correo" id="Correo"
+        placeholder="example@email.com"> <br> <br>
+
+        <label for="Teléfono">Número de teléfono</label>
+        <input type="tel" name="Teléfono" id="Teléfono"
+        placeholder="1234-5678"> <br><br>
+
+        <label for="quantity">Cantidad de acompañantes:</label>
+        <input type="number" name="Quantity" id="Quantity" min="1" max="5"> <br><br>
+
+        <label for="Lugar de origen">Lugar de origen:</label>
+        <select name="Lugar de origen" id="Lugar de origen">
+        <option value="San Salvador">San Salvador</option>
+        <option value="Guatemala">Guatemala</option>
+        <option value="México">México</option>
+        <option value="USA">USA</option>
+        <option value="Argentina">Argentina</option>
+    </select> <br><br>
+
+        <label for="Lugar de destino">Lugar de destino:</label>
+        <select name="Lugar de destino" id="Lugar de destino">
+            <option value="Lauterbrunnen">Luterbrunnen</option>
+            <option value="Florencia">Florencia</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Venecia">Venecia</option>
+         </select>
+
+    </form>
+</body>
+</html>
