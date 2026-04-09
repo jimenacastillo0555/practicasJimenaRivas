@@ -146,14 +146,19 @@ input[type="submit"]:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  
 }
- 
-#s5 img {
-  width: 30%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
+        
+ .contenedor-galeria{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 10px;
+align-content: center;
+justify-content: center
 }
+
+
  
 /* FOOTER */
 footer {
@@ -269,10 +274,12 @@ footer {
         <section> 
             <h2 id="s5">Galería</h2> 
             <section>
+                <div class="contenedor-galeria">
             <img src="https://www.indiewire.com/wp-content/uploads/2016/08/20140216-131646.jpg" alt="Jay Gatsby" width="300px">
             <img src="https://m.media-amazon.com/images/S/pv-target-images/c942e7a433a43fe15aba59ba215b0d956a5ada6e22e33dad4320b79262366204.jpg" alt="Jay Gatsby" width="300px">
             <img src="https://variety.com/wp-content/uploads/2013/05/greatgatsby_curtains.jpg" alt="Jay Gatsby" width="300px">
             <img src="https://m.media-amazon.com/images/M/MV5BMjEwMjIxNDQ2OF5BMl5BanBnXkFtZTcwMTcwOTM0OQ@@._V1_.jpg" alt="Jay Gatsby" width="300px">
+            </div>
         </section> 
              
     </main> 
