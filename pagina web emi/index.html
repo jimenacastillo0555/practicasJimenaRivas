@@ -1,0 +1,680 @@
+<!-- ========================= -->
+<!-- ARCHIVO: index.html -->
+<!-- ========================= -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juego Neon</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:black;
+            color:white;
+            min-height:100vh;
+            overflow-x:hidden;
+            transition:0.4s;
+        }
+
+        /* ================= HEADER ================= */
+
+        header{
+            width:100%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:20px 40px;
+
+            border-bottom:2px solid #ff00ff;
+
+            box-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff44;
+        }
+
+        .logo{
+            font-size:28px;
+            color:#00e5ff;
+
+            text-shadow:
+                0 0 10px #00e5ff,
+                0 0 20px #00e5ff;
+        }
+
+        nav a{
+            text-decoration:none;
+            color:white;
+            margin-left:25px;
+            transition:0.3s;
+        }
+
+        nav a:hover{
+            color:#ff00ff;
+
+            text-shadow:
+                0 0 10px #ff00ff;
+        }
+
+        .activo{
+            color:#ff00ff;
+            text-shadow:0 0 10px #ff00ff;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container{
+            display:flex;
+            gap:30px;
+            padding:30px;
+        }
+
+        /* ================= PANEL ================= */
+
+        .panel{
+            width:300px;
+        }
+
+        .card{
+            background:#050510;
+
+            border:2px solid #ff00ff;
+            border-radius:15px;
+
+            padding:20px;
+            margin-bottom:20px;
+
+            box-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff33;
+        }
+
+        .card h2{
+            margin-bottom:15px;
+            color:#00e5ff;
+
+            text-shadow:0 0 10px #00e5ff;
+        }
+
+        .card p{
+            line-height:1.7;
+            color:#ddd;
+        }
+
+        .card ul{
+            list-style:none;
+        }
+
+        .card li{
+            margin-bottom:12px;
+            color:#ddd;
+        }
+
+        /* ================= BOTÓN ================= */
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:15px;
+
+            border:none;
+            border-radius:10px;
+
+            background:#00e5ff;
+            color:black;
+
+            font-size:16px;
+            font-weight:bold;
+
+            cursor:pointer;
+
+            box-shadow:
+                0 0 10px #00e5ff,
+                0 0 20px #00e5ff;
+
+            transition:0.3s;
+        }
+
+        button:hover{
+            transform:scale(1.05);
+        }
+
+        /* ================= GAME ================= */
+
+        .game-area{
+            flex:1;
+            text-align:center;
+        }
+
+        .titulo{
+            color:#ff00ff;
+            font-size:45px;
+
+            text-shadow:
+                0 0 10px #ff00ff,
+                0 0 20px #ff00ff;
+        }
+
+        .subtitulo{
+            margin-top:10px;
+            margin-bottom:20px;
+            color:#ccc;
+        }
+
+        .score{
+            margin-bottom:20px;
+            font-size:35px;
+        }
+
+        .score span{
+            color:yellow;
+        }
+
+        canvas{
+            background:black;
+
+            border:3px solid #ff00ff;
+            border-radius:15px;
+
+            box-shadow:
+                0 0 15px #ff00ff,
+                0 0 30px #ff00ff33,
+                inset 0 0 20px #ff00ff22;
+        }
+
+        .mensaje{
+            margin-top:20px;
+
+            color:#00e5ff;
+
+            text-shadow:0 0 10px #00e5ff;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:900px){
+
+            .container{
+                flex-direction:column;
+            }
+
+            .panel{
+                width:100%;
+            }
+
+            canvas{
+                width:100%;
+                height:auto;
+            }
+
+            header{
+                flex-direction:column;
+                gap:15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1 class="logo">🎮 Mi Página Interactiva</h1>
+
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Acerca de</a>
+            <a href="#" class="activo">Juego</a>
+            <a href="#">Contacto</a>
+        </nav>
+
+    </header>
+
+    <!-- ================= CONTENIDO ================= -->
+
+    <div class="container">
+
+        <!-- PANEL -->
+
+        <section class="panel">
+
+            <div class="card">
+
+                <h2>⚡ Bienvenido</h2>
+
+                <p>
+                    Bienvenidos todos, diviertanse 
+                    con este mini juego creado especialmente
+                    para ustedes!!!
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🎨 Interacción rápida</h2>
+
+                <p>
+                    Presiona el botón para cambiar
+                    el color del fondo.
+                </p>
+
+                <button id="colorBtn">
+                    Cambiar color
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🕹 Cómo jugar</h2>
+
+                <ul>
+                    <li>⬅ Flecha izquierda: mover</li>
+                    <li>➡ Flecha derecha: mover</li>
+                    <li>⭐ Atrapa estrellas amarillas</li>
+                    <li>😈 Evita enemigos rojos</li>
+                    <li>💀 Si te tocan, pierdes</li>
+                    <li>¡Ganas al obtener 30 puntos!</li>
+                </ul>
+
+            </div>
+
+        </section>
+
+        <!-- JUEGO -->
+
+        <section class="game-area">
+
+            <h1 class="titulo">🎮 Juego Final 🎮</h1>
+
+            <p class="subtitulo">
+                Atrapa las estrellas y evita a los enemigos
+            </p>
+
+            <h2 class="score">
+                Puntaje:
+                <span id="score">0</span>
+            </h2>
+
+            <canvas id="gameCanvas" width="750" height="420"></canvas>
+
+            <h2 class="mensaje">
+                🏆 ¡Diviértete practicando y mejorando!
+            </h2>
+
+        </section>
+
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const scoreText = document.getElementById("score");
+
+        let score = 0;
+
+        /* ================= PLAYER ================= */
+
+        const player = {
+
+            x: 375,
+            y: 350,
+
+            radius: 22,
+
+            speed: 8
+        };
+
+        /* ================= ARRAYS ================= */
+
+        let stars = [];
+        let enemies = [];
+
+        /* ================= CONTROLES ================= */
+
+        let leftPressed = false;
+        let rightPressed = false;
+
+        document.addEventListener("keydown", (e)=>{
+
+            if(e.key === "ArrowLeft"){
+                leftPressed = true;
+            }
+
+            if(e.key === "ArrowRight"){
+                rightPressed = true;
+            }
+
+        });
+
+        document.addEventListener("keyup", (e)=>{
+
+            if(e.key === "ArrowLeft"){
+                leftPressed = false;
+            }
+
+            if(e.key === "ArrowRight"){
+                rightPressed = false;
+            }
+
+        });
+
+        /* ================= FONDO ESTRELLAS ================= */
+
+        function drawBackground(){
+
+            for(let i=0; i<100; i++){
+
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+
+                ctx.fillStyle = "white";
+
+                ctx.fillRect(x, y, 2, 2);
+            }
+        }
+
+        /* ================= JUGADOR ================= */
+
+        function drawPlayer(){
+
+            ctx.save();
+
+            ctx.shadowColor = "#7CFF00";
+            ctx.shadowBlur = 20;
+
+            ctx.fillStyle = "#7CFF00";
+
+            ctx.beginPath();
+
+            ctx.arc(
+                player.x,
+                player.y,
+                player.radius,
+                0.2 * Math.PI,
+                1.8 * Math.PI
+            );
+
+            ctx.lineTo(player.x, player.y);
+
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        /* ================= CREAR ESTRELLAS ================= */
+
+        function createStar(){
+
+            stars.push({
+
+                x: Math.random() * (canvas.width - 30) + 15,
+
+                y: -20,
+
+                radius: 10,
+
+                speed: 3 + Math.random() * 2
+            });
+        }
+
+        /* ================= DIBUJAR ESTRELLAS ================= */
+
+        function drawStars(){
+
+            ctx.fillStyle = "yellow";
+
+            ctx.shadowColor = "yellow";
+            ctx.shadowBlur = 20;
+
+            stars.forEach((star, index)=>{
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    star.x,
+                    star.y,
+                    star.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fill();
+
+                star.y += star.speed;
+
+                /* COLISIÓN */
+
+                let dx = star.x - player.x;
+                let dy = star.y - player.y;
+
+                let distance = Math.sqrt(dx*dx + dy*dy);
+
+                if(distance < star.radius + player.radius){
+
+                    score++;
+
+                    scoreText.textContent = score;
+
+                    stars.splice(index,1);
+                }
+
+                /* BORRAR SI SALE */
+
+                if(star.y > canvas.height){
+
+                    stars.splice(index,1);
+                }
+
+            });
+
+            ctx.shadowBlur = 0;
+        }
+
+        /* ================= CREAR ENEMIGOS ================= */
+
+        function createEnemy(){
+
+            enemies.push({
+
+                x: Math.random() * (canvas.width - 30) + 15,
+
+                y: -20,
+
+                radius: 14,
+
+                speed: 4 + Math.random() * 2
+            });
+        }
+
+        /* ================= DIBUJAR ENEMIGOS ================= */
+
+        function drawEnemies(){
+
+            enemies.forEach((enemy,index)=>{
+
+                /* CUERPO */
+
+                ctx.save();
+
+                ctx.shadowColor = "red";
+                ctx.shadowBlur = 20;
+
+                ctx.fillStyle = "red";
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    enemy.x,
+                    enemy.y,
+                    enemy.radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fill();
+
+                /* OJOS */
+
+                ctx.fillStyle = "black";
+
+                ctx.beginPath();
+
+                ctx.arc(enemy.x - 5, enemy.y - 3, 2, 0, Math.PI*2);
+                ctx.arc(enemy.x + 5, enemy.y - 3, 2, 0, Math.PI*2);
+
+                ctx.fill();
+
+                /* BOCA */
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    enemy.x,
+                    enemy.y + 4,
+                    5,
+                    0,
+                    Math.PI
+                );
+
+                ctx.strokeStyle = "black";
+
+                ctx.stroke();
+
+                ctx.restore();
+
+                enemy.y += enemy.speed;
+
+                /* COLISIÓN */
+
+                let dx = enemy.x - player.x;
+                let dy = enemy.y - player.y;
+
+                let distance = Math.sqrt(dx*dx + dy*dy);
+
+                if(distance < enemy.radius + player.radius){
+
+                    alert("💀 GAME OVER\n\nPuntaje: " + score);
+
+                    score = 0;
+
+                    scoreText.textContent = score;
+
+                    enemies = [];
+                    stars = [];
+                }
+
+                /* ELIMINAR */
+
+                if(enemy.y > canvas.height){
+
+                    enemies.splice(index,1);
+                }
+
+            });
+        }
+
+        /* ================= MOVIMIENTO ================= */
+
+        function movePlayer(){
+
+            if(leftPressed){
+
+                player.x -= player.speed;
+            }
+
+            if(rightPressed){
+
+                player.x += player.speed;
+            }
+
+            /* LIMITES */
+
+            if(player.x < player.radius){
+
+                player.x = player.radius;
+            }
+
+            if(player.x > canvas.width - player.radius){
+
+                player.x = canvas.width - player.radius;
+            }
+        }
+
+        /* ================= LOOP ================= */
+
+        function update(){
+
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            drawBackground();
+
+            movePlayer();
+
+            drawPlayer();
+
+            drawStars();
+
+            drawEnemies();
+
+            requestAnimationFrame(update);
+        }
+
+        /* ================= GENERADORES ================= */
+
+        setInterval(createStar, 900);
+
+        setInterval(createEnemy, 1500);
+
+        /* ================= BOTÓN COLOR ================= */
+
+        const backgrounds = [
+
+            "black",
+            "#050020",
+            "#001122",
+            "#100010",
+            "#001a00"
+        ];
+
+        let bgIndex = 0;
+
+        document.getElementById("colorBtn")
+        .addEventListener("click", ()=>{
+
+            bgIndex++;
+
+            if(bgIndex >= backgrounds.length){
+
+                bgIndex = 0;
+            }
+
+            document.body.style.background = backgrounds[bgIndex];
+        });
+
+        /* ================= INICIAR ================= */
+
+        update();
+
+    </script>
+
+</body>
+</html>
